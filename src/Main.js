@@ -11,7 +11,7 @@ export default {
     if (opts.connectManually) {
       Vue.prototype.$connect = (conn) => {
         if (conn) {
-          observer = new Observer(connection, opts)  
+          observer = new Observer(connection, opts)
         } else {
           observer = new Observer(connection, opts)
         }
