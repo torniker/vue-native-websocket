@@ -75,8 +75,10 @@ export default class {
           method = 'dispatch'
           target = [msg.namespace || '', msg.action].filter((e) => !!e).join('/')
         }
+        this.store[method](target, msg)
       }
+    } else {
+      this.store[method](target, msg)
     }
-    this.store[method](target, msg)
   }
 }
