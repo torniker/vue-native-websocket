@@ -66,12 +66,15 @@ export default class {
     let target = eventName.toUpperCase()
     let msg = event
     if (this.format === 'json' && event.data) {
-      msg = JSON.parse(event.data)
-      if (msg.mutation) {
-        target = [msg.namespace || '', msg.mutation].filter((e) => !!e).join('/')
-      } else if (msg.action) {
-        method = 'dispatch'
-        target = [msg.namespace || '', msg.action].filter((e) => !!e).join('/')
+      var msgs = event.data.split('\n')
+      for (let msgStr of msgs) {
+        msg = JSON.parse(msgStr)
+        if (msg.mutation) {
+          target = [msg.namespace || '', msg.mutation].filter((e) => !!e).join('/')
+        } else if (msg.action) {
+          method = 'dispatch'
+          target = [msg.namespace || '', msg.action].filter((e) => !!e).join('/')
+        }
       }
     }
     this.store[method](target, msg)

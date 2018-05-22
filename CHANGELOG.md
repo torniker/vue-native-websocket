@@ -2,6 +2,9 @@
 
 This package is [semantic versioned](http://semver.org/)
 
+## 2.0.8
+- [bugfix]: in case socket sends multiple pushes it will be splitted and then handled
+
 ## 2.0.7
 - [feature]: manual connect/disconnect
 
