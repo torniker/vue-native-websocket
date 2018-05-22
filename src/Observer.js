@@ -64,11 +64,10 @@ export default class {
     if (!eventName.startsWith('SOCKET_')) { return }
     let method = 'commit'
     let target = eventName.toUpperCase()
-    let msg = event
     if (this.format === 'json' && event.data) {
       var msgs = event.data.split('\n')
       for (let msgStr of msgs) {
-        msg = JSON.parse(msgStr)
+        let msg = JSON.parse(msgStr)
         if (msg.mutation) {
           target = [msg.namespace || '', msg.mutation].filter((e) => !!e).join('/')
         } else if (msg.action) {
@@ -78,7 +77,7 @@ export default class {
         this.store[method](target, msg)
       }
     } else {
-      this.store[method](target, msg)
+      this.store[method](target, event)
     }
   }
 }
