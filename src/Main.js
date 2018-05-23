@@ -25,7 +25,7 @@ export default {
         delete Vue.prototype.$socket
       }
     }
-    // } 
+    // }
     if (!opts.connectManually) {
       observer = new Observer(connection, opts)
       Vue.prototype.$socket = observer.WebSocket
