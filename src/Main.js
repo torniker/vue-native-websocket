@@ -8,24 +8,25 @@ export default {
 
     let observer = null
 
-    if (opts.connectManually) {
-      Vue.prototype.$connect = (conn) => {
-        if (conn) {
-          observer = new Observer(conn, opts)
-        } else {
-          observer = new Observer(connection, opts)
-        }
-        Vue.prototype.$socket = observer.WebSocket
+    // if (opts.connectManually) {
+    Vue.prototype.$connect = (conn) => {
+      if (conn) {
+        observer = new Observer(conn, opts)
+      } else {
+        observer = new Observer(connection, opts)
       }
+      Vue.prototype.$socket = observer.WebSocket
+    }
 
-      Vue.prototype.$disconnect = () => {
-        if (observer && observer.reconnection) { observer.reconnection = false }
-        if (Vue.prototype.$socket) {
-          Vue.prototype.$socket.close()
-          delete Vue.prototype.$socket
-        }
+    Vue.prototype.$disconnect = () => {
+      if (observer && observer.reconnection) { observer.reconnection = false }
+      if (Vue.prototype.$socket) {
+        Vue.prototype.$socket.close()
+        delete Vue.prototype.$socket
       }
-    } else {
+    }
+    // } 
+    if (!opts.connectManually) {
       observer = new Observer(connection, opts)
       Vue.prototype.$socket = observer.WebSocket
     }
